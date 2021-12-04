@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/aos/projects/src/mr_task_factory.cc
+utility
+-
+unordered_map
+-
+functional
+-
+mr_tasks.h
+/aos/projects/src/mr_tasks.h
+mr_task_factory.h
+-
+
+/aos/projects/src/mr_tasks.h
+string
+-
+iostream
+-
+
+/aos/projects/src/run_worker.cc
+worker.h
+/aos/projects/src/worker.h
+
+/aos/projects/src/worker.h
+mr_task_factory.h
+-
+mr_tasks.h
+/aos/projects/src/mr_tasks.h
+
+external/include/mr_task_factory.h
+iostream
+-
+memory
+-
+vector
+-
+functional
+-
+
