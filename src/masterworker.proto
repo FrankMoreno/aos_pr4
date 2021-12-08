@@ -1,3 +1,21 @@
 syntax = "proto3";
 
 package masterworker;
+
+service WorkerImpl {
+    rpc Map (Shard) returns (MapReply) {}
+}
+
+message Shard {
+    repeated ShardFileInfo files = 1;
+}
+
+message ShardFileInfo {
+    string fileName = 1;
+    int32 start = 2;
+    int32 finish = 3;
+}
+
+message MapReply {
+    string message = 1;
+}

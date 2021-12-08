@@ -129,9 +129,13 @@ google/protobuf/metadata_lite.h
 -
 google/protobuf/generated_message_reflection.h
 -
+google/protobuf/message.h
+-
 google/protobuf/repeated_field.h
 -
 google/protobuf/extension_set.h
+-
+google/protobuf/unknown_field_set.h
 -
 google/protobuf/port_def.inc
 -

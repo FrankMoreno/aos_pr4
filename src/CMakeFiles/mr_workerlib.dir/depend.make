@@ -5,6 +5,8 @@ src/CMakeFiles/mr_workerlib.dir/mr_task_factory.cc.o: src/mr_task_factory.cc
 src/CMakeFiles/mr_workerlib.dir/mr_task_factory.cc.o: src/mr_tasks.h
 src/CMakeFiles/mr_workerlib.dir/mr_task_factory.cc.o: external/include/mr_task_factory.h
 
+src/CMakeFiles/mr_workerlib.dir/run_worker.cc.o: src/masterworker.grpc.pb.h
+src/CMakeFiles/mr_workerlib.dir/run_worker.cc.o: src/masterworker.pb.h
 src/CMakeFiles/mr_workerlib.dir/run_worker.cc.o: src/mr_tasks.h
 src/CMakeFiles/mr_workerlib.dir/run_worker.cc.o: src/run_worker.cc
 src/CMakeFiles/mr_workerlib.dir/run_worker.cc.o: src/worker.h

@@ -13,3 +13,5 @@ src/CMakeFiles/mapreducelib.dir/mapreduce_impl.cc.o
  /aos/projects/src/mapreduce_impl.h
  /aos/projects/src/mapreduce_spec.h
  /aos/projects/src/master.h
+ /aos/projects/src/masterworker.grpc.pb.h
+ /aos/projects/src/masterworker.pb.h

@@ -11,7 +11,7 @@ namespace fs = std::experimental::filesystem;
 struct FileInfo {
      std::string file_name;
      int start;
-     int end;
+     int finish;
 };
 
 struct FileShard {
@@ -62,7 +62,7 @@ inline bool shard_files(const MapReduceSpec& mr_spec, std::vector<FileShard>& fi
                if (remaining_file_in_kilobytes < remaining_shard_capacity) {
                     FileInfo current_file_info;
                     current_file_info.start = pointer;
-                    current_file_info.end = file_size - 1;
+                    current_file_info.finish = file_size - 1;
                     current_file_info.file_name = file_name;
                     list_of_files.files.push_back(current_file_info);
                     // std::cout << "Bucket: "<< count << " pushing " << pointer << " until " << file_size - 1 << " for file " << file_name << "\n";
@@ -80,8 +80,8 @@ inline bool shard_files(const MapReduceSpec& mr_spec, std::vector<FileShard>& fi
                     pointer += remaining_shard_capacity * 1024;
                     // std::cout << "checking for next new line after " << pointer << "\n";
                     pointer += find_next_newline(file_name, pointer);
-                    current_file_info.end = pointer;
-                    // std::cout << "Bucket: "<< count << " pushing " << current_file_info.start << " until " << current_file_info.end << " for file " << file_name << "\n";
+                    current_file_info.finish = pointer;
+                    // std::cout << "Bucket: "<< count << " pushing " << current_file_info.start << " until " << current_file_info.finish << " for file " << file_name << "\n";
                     // std::cout << "Flushing shards\n";
                     remaining_file_in_kilobytes -= remaining_shard_capacity;
                     remaining_shard_capacity = mr_spec.map_kilobytes;
