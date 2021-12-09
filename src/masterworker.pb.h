@@ -495,22 +495,22 @@ class MapReply PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kMessageFieldNumber = 1,
+    kMapFileFieldNumber = 1,
   };
-  // string message = 1;
-  void clear_message();
-  const std::string& message() const;
-  void set_message(const std::string& value);
-  void set_message(std::string&& value);
-  void set_message(const char* value);
-  void set_message(const char* value, size_t size);
-  std::string* mutable_message();
-  std::string* release_message();
-  void set_allocated_message(std::string* message);
+  // string mapFile = 1;
+  void clear_mapfile();
+  const std::string& mapfile() const;
+  void set_mapfile(const std::string& value);
+  void set_mapfile(std::string&& value);
+  void set_mapfile(const char* value);
+  void set_mapfile(const char* value, size_t size);
+  std::string* mutable_mapfile();
+  std::string* release_mapfile();
+  void set_allocated_mapfile(std::string* mapfile);
   private:
-  const std::string& _internal_message() const;
-  void _internal_set_message(const std::string& value);
-  std::string* _internal_mutable_message();
+  const std::string& _internal_mapfile() const;
+  void _internal_set_mapfile(const std::string& value);
+  std::string* _internal_mutable_mapfile();
   public:
 
   // @@protoc_insertion_point(class_scope:masterworker.MapReply)
@@ -520,7 +520,7 @@ class MapReply PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mapfile_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_masterworker_2eproto;
 };
@@ -683,65 +683,65 @@ inline void ShardFileInfo::set_finish(::PROTOBUF_NAMESPACE_ID::int32 value) {
 
 // MapReply
 
-// string message = 1;
-inline void MapReply::clear_message() {
-  message_.ClearToEmpty();
+// string mapFile = 1;
+inline void MapReply::clear_mapfile() {
+  mapfile_.ClearToEmpty();
 }
-inline const std::string& MapReply::message() const {
-  // @@protoc_insertion_point(field_get:masterworker.MapReply.message)
-  return _internal_message();
+inline const std::string& MapReply::mapfile() const {
+  // @@protoc_insertion_point(field_get:masterworker.MapReply.mapFile)
+  return _internal_mapfile();
 }
-inline void MapReply::set_message(const std::string& value) {
-  _internal_set_message(value);
-  // @@protoc_insertion_point(field_set:masterworker.MapReply.message)
+inline void MapReply::set_mapfile(const std::string& value) {
+  _internal_set_mapfile(value);
+  // @@protoc_insertion_point(field_set:masterworker.MapReply.mapFile)
 }
-inline std::string* MapReply::mutable_message() {
-  // @@protoc_insertion_point(field_mutable:masterworker.MapReply.message)
-  return _internal_mutable_message();
+inline std::string* MapReply::mutable_mapfile() {
+  // @@protoc_insertion_point(field_mutable:masterworker.MapReply.mapFile)
+  return _internal_mutable_mapfile();
 }
-inline const std::string& MapReply::_internal_message() const {
-  return message_.Get();
+inline const std::string& MapReply::_internal_mapfile() const {
+  return mapfile_.Get();
 }
-inline void MapReply::_internal_set_message(const std::string& value) {
+inline void MapReply::_internal_set_mapfile(const std::string& value) {
   
-  message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+  mapfile_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void MapReply::set_message(std::string&& value) {
+inline void MapReply::set_mapfile(std::string&& value) {
   
-  message_.Set(
+  mapfile_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:masterworker.MapReply.message)
+  // @@protoc_insertion_point(field_set_rvalue:masterworker.MapReply.mapFile)
 }
-inline void MapReply::set_message(const char* value) {
+inline void MapReply::set_mapfile(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:masterworker.MapReply.message)
+  mapfile_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:masterworker.MapReply.mapFile)
 }
-inline void MapReply::set_message(const char* value,
+inline void MapReply::set_mapfile(const char* value,
     size_t size) {
   
-  message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+  mapfile_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:masterworker.MapReply.message)
+  // @@protoc_insertion_point(field_set_pointer:masterworker.MapReply.mapFile)
 }
-inline std::string* MapReply::_internal_mutable_message() {
+inline std::string* MapReply::_internal_mutable_mapfile() {
   
-  return message_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+  return mapfile_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* MapReply::release_message() {
-  // @@protoc_insertion_point(field_release:masterworker.MapReply.message)
-  return message_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline std::string* MapReply::release_mapfile() {
+  // @@protoc_insertion_point(field_release:masterworker.MapReply.mapFile)
+  return mapfile_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void MapReply::set_allocated_message(std::string* message) {
-  if (message != nullptr) {
+inline void MapReply::set_allocated_mapfile(std::string* mapfile) {
+  if (mapfile != nullptr) {
     
   } else {
     
   }
-  message_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), message,
+  mapfile_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), mapfile,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:masterworker.MapReply.message)
+  // @@protoc_insertion_point(field_set_allocated:masterworker.MapReply.mapFile)
 }
 
 #ifdef __GNUC__

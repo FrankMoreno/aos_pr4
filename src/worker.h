@@ -47,16 +47,39 @@ class Worker final : public WorkerImpl::Service {
 				std::ifstream input_file(fileInfo.filename());
 				input_file.seekg(fileInfo.start());
 				input_file.read(&buffer[0], size);
-				
+
+				// Instructions specified to process input based on newline
+				std::stringstream buffer_stream(buffer);
+				std::string line;
+				while(std::getline(buffer_stream, line)) {
+					mapper->map(line);
+				}
 				// Need to remove newline characters so only words are mapped
 				// https://www.systutorials.com/how-to-remove-newline-characters-from-a-string-in-c/
-				buffer.erase(std::remove(buffer.begin(), buffer.end(), '\n'), buffer.end());
-				mapper->map(buffer);
+				// TODO: Possible bug here with how newline is being removed, might combine words
+				// buffer.erase(std::remove(buffer.begin(), buffer.end(), '\n'), buffer.end());
+				// mapper->map(buffer);
 				input_file.close();
 			}
 
+			// TODO: Need a dynamic file name
+			std::string responseFileName = "filename.txt";
+			std::ofstream responseFile("filename.txt", std::ios_base::app);
+			std::multimap <std::string, std::string> :: iterator itr;
+
+			for (itr = mapper->impl_->key_value_pairs.begin(); itr != mapper->impl_->key_value_pairs.end(); ++itr) {
+				responseFile << itr->first << " " << itr->second << "\n";
+			}
+
+			responseFile.close();
+			reply->set_mapfile(responseFileName);
+
 			return Status::OK;
-		}	
+		}
+
+		// Status Reduce(ServerContext* context, const Shard* request, MapReply* reply) override {
+		// 	return Status::OK;
+		// }
 };
 
 

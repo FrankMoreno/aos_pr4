@@ -17,5 +17,5 @@ message ShardFileInfo {
 }
 
 message MapReply {
-    string message = 1;
+    string mapFile = 1;
 }

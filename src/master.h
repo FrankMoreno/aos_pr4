@@ -50,18 +50,20 @@ bool Master::run() {
 	MapReply reply;
 	ClientContext context;
 
-	for (FileInfo current_file : this->file_shards[0].files) {
-		std::cout << current_file.file_name << "\n";
-		fileInfo = request.add_files();
-		fileInfo->set_filename(current_file.file_name);
-		fileInfo->set_start(current_file.start);
-		fileInfo->set_finish(current_file.finish);
+	for (FileShard currentShard : this->file_shards) {
+		for (FileInfo current_file : currentShard.files) {
+			std::cout << current_file.file_name << "\n";
+			fileInfo = request.add_files();
+			fileInfo->set_filename(current_file.file_name);
+			fileInfo->set_start(current_file.start);
+			fileInfo->set_finish(current_file.finish);
+		}
 	}
 
 	Status status = stub->Map(&context, request, &reply);
 
 	if(status.ok()) {
-		std::cout << "Finished" << "\n";
+		std::cout << reply.mapfile() << "\n";
 	}
 
 	return true;
