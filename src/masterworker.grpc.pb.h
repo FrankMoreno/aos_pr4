@@ -43,6 +43,13 @@ class WorkerImpl final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::masterworker::MapReply>> PrepareAsyncMap(::grpc::ClientContext* context, const ::masterworker::Shard& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::masterworker::MapReply>>(PrepareAsyncMapRaw(context, request, cq));
     }
+    virtual ::grpc::Status Reduce(::grpc::ClientContext* context, const ::masterworker::ReduceFile& request, ::masterworker::ReduceReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::masterworker::ReduceReply>> AsyncReduce(::grpc::ClientContext* context, const ::masterworker::ReduceFile& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::masterworker::ReduceReply>>(AsyncReduceRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::masterworker::ReduceReply>> PrepareAsyncReduce(::grpc::ClientContext* context, const ::masterworker::ReduceFile& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::masterworker::ReduceReply>>(PrepareAsyncReduceRaw(context, request, cq));
+    }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
@@ -51,6 +58,12 @@ class WorkerImpl final {
       virtual void Map(::grpc::ClientContext* context, const ::masterworker::Shard* request, ::masterworker::MapReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
       virtual void Map(::grpc::ClientContext* context, const ::masterworker::Shard* request, ::masterworker::MapReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      virtual void Reduce(::grpc::ClientContext* context, const ::masterworker::ReduceFile* request, ::masterworker::ReduceReply* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void Reduce(::grpc::ClientContext* context, const ::masterworker::ReduceFile* request, ::masterworker::ReduceReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void Reduce(::grpc::ClientContext* context, const ::masterworker::ReduceFile* request, ::masterworker::ReduceReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -63,6 +76,8 @@ class WorkerImpl final {
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::masterworker::MapReply>* AsyncMapRaw(::grpc::ClientContext* context, const ::masterworker::Shard& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::masterworker::MapReply>* PrepareAsyncMapRaw(::grpc::ClientContext* context, const ::masterworker::Shard& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::masterworker::ReduceReply>* AsyncReduceRaw(::grpc::ClientContext* context, const ::masterworker::ReduceFile& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::masterworker::ReduceReply>* PrepareAsyncReduceRaw(::grpc::ClientContext* context, const ::masterworker::ReduceFile& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -74,6 +89,13 @@ class WorkerImpl final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::masterworker::MapReply>> PrepareAsyncMap(::grpc::ClientContext* context, const ::masterworker::Shard& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::masterworker::MapReply>>(PrepareAsyncMapRaw(context, request, cq));
     }
+    ::grpc::Status Reduce(::grpc::ClientContext* context, const ::masterworker::ReduceFile& request, ::masterworker::ReduceReply* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::masterworker::ReduceReply>> AsyncReduce(::grpc::ClientContext* context, const ::masterworker::ReduceFile& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::masterworker::ReduceReply>>(AsyncReduceRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::masterworker::ReduceReply>> PrepareAsyncReduce(::grpc::ClientContext* context, const ::masterworker::ReduceFile& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::masterworker::ReduceReply>>(PrepareAsyncReduceRaw(context, request, cq));
+    }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
@@ -82,6 +104,12 @@ class WorkerImpl final {
       void Map(::grpc::ClientContext* context, const ::masterworker::Shard* request, ::masterworker::MapReply* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
       void Map(::grpc::ClientContext* context, const ::masterworker::Shard* request, ::masterworker::MapReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void Reduce(::grpc::ClientContext* context, const ::masterworker::ReduceFile* request, ::masterworker::ReduceReply* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void Reduce(::grpc::ClientContext* context, const ::masterworker::ReduceFile* request, ::masterworker::ReduceReply* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void Reduce(::grpc::ClientContext* context, const ::masterworker::ReduceFile* request, ::masterworker::ReduceReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
      private:
       friend class Stub;
@@ -96,7 +124,10 @@ class WorkerImpl final {
     class experimental_async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::masterworker::MapReply>* AsyncMapRaw(::grpc::ClientContext* context, const ::masterworker::Shard& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::masterworker::MapReply>* PrepareAsyncMapRaw(::grpc::ClientContext* context, const ::masterworker::Shard& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::masterworker::ReduceReply>* AsyncReduceRaw(::grpc::ClientContext* context, const ::masterworker::ReduceFile& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::masterworker::ReduceReply>* PrepareAsyncReduceRaw(::grpc::ClientContext* context, const ::masterworker::ReduceFile& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_Map_;
+    const ::grpc::internal::RpcMethod rpcmethod_Reduce_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -105,6 +136,7 @@ class WorkerImpl final {
     Service();
     virtual ~Service();
     virtual ::grpc::Status Map(::grpc::ServerContext* context, const ::masterworker::Shard* request, ::masterworker::MapReply* response);
+    virtual ::grpc::Status Reduce(::grpc::ServerContext* context, const ::masterworker::ReduceFile* request, ::masterworker::ReduceReply* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_Map : public BaseClass {
@@ -126,7 +158,27 @@ class WorkerImpl final {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_Map<Service > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_Reduce : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_Reduce() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_Reduce() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Reduce(::grpc::ServerContext* /*context*/, const ::masterworker::ReduceFile* /*request*/, ::masterworker::ReduceReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestReduce(::grpc::ServerContext* context, ::masterworker::ReduceFile* request, ::grpc::ServerAsyncResponseWriter< ::masterworker::ReduceReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_Map<WithAsyncMethod_Reduce<Service > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_Map : public BaseClass {
    private:
@@ -174,11 +226,58 @@ class WorkerImpl final {
     #endif
       { return nullptr; }
   };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_Reduce : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_Reduce() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::masterworker::ReduceFile, ::masterworker::ReduceReply>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::masterworker::ReduceFile* request, ::masterworker::ReduceReply* response) { return this->Reduce(context, request, response); }));}
+    void SetMessageAllocatorFor_Reduce(
+        ::grpc::experimental::MessageAllocator< ::masterworker::ReduceFile, ::masterworker::ReduceReply>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
+    #endif
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::masterworker::ReduceFile, ::masterworker::ReduceReply>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_Reduce() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Reduce(::grpc::ServerContext* /*context*/, const ::masterworker::ReduceFile* /*request*/, ::masterworker::ReduceReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* Reduce(
+      ::grpc::CallbackServerContext* /*context*/, const ::masterworker::ReduceFile* /*request*/, ::masterworker::ReduceReply* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* Reduce(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::masterworker::ReduceFile* /*request*/, ::masterworker::ReduceReply* /*response*/)
+    #endif
+      { return nullptr; }
+  };
   #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_Map<Service > CallbackService;
+  typedef ExperimentalWithCallbackMethod_Map<ExperimentalWithCallbackMethod_Reduce<Service > > CallbackService;
   #endif
 
-  typedef ExperimentalWithCallbackMethod_Map<Service > ExperimentalCallbackService;
+  typedef ExperimentalWithCallbackMethod_Map<ExperimentalWithCallbackMethod_Reduce<Service > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_Map : public BaseClass {
    private:
@@ -192,6 +291,23 @@ class WorkerImpl final {
     }
     // disable synchronous version of this method
     ::grpc::Status Map(::grpc::ServerContext* /*context*/, const ::masterworker::Shard* /*request*/, ::masterworker::MapReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_Reduce : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_Reduce() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_Reduce() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Reduce(::grpc::ServerContext* /*context*/, const ::masterworker::ReduceFile* /*request*/, ::masterworker::ReduceReply* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -214,6 +330,26 @@ class WorkerImpl final {
     }
     void RequestMap(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_Reduce : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_Reduce() {
+      ::grpc::Service::MarkMethodRaw(1);
+    }
+    ~WithRawMethod_Reduce() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Reduce(::grpc::ServerContext* /*context*/, const ::masterworker::ReduceFile* /*request*/, ::masterworker::ReduceReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestReduce(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -255,6 +391,44 @@ class WorkerImpl final {
       { return nullptr; }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_Reduce : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_Reduce() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Reduce(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_Reduce() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Reduce(::grpc::ServerContext* /*context*/, const ::masterworker::ReduceFile* /*request*/, ::masterworker::ReduceReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* Reduce(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* Reduce(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_Map : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -281,9 +455,36 @@ class WorkerImpl final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedMap(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::masterworker::Shard,::masterworker::MapReply>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_Map<Service > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_Reduce : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_Reduce() {
+      ::grpc::Service::MarkMethodStreamed(1,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::masterworker::ReduceFile, ::masterworker::ReduceReply>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::masterworker::ReduceFile, ::masterworker::ReduceReply>* streamer) {
+                       return this->StreamedReduce(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_Reduce() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status Reduce(::grpc::ServerContext* /*context*/, const ::masterworker::ReduceFile* /*request*/, ::masterworker::ReduceReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedReduce(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::masterworker::ReduceFile,::masterworker::ReduceReply>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_Map<WithStreamedUnaryMethod_Reduce<Service > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_Map<Service > StreamedService;
+  typedef WithStreamedUnaryMethod_Map<WithStreamedUnaryMethod_Reduce<Service > > StreamedService;
 };
 
 }  // namespace masterworker

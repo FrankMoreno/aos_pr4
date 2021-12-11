@@ -46,7 +46,7 @@ struct TableStruct_masterworker_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -57,6 +57,12 @@ namespace masterworker {
 class MapReply;
 class MapReplyDefaultTypeInternal;
 extern MapReplyDefaultTypeInternal _MapReply_default_instance_;
+class ReduceFile;
+class ReduceFileDefaultTypeInternal;
+extern ReduceFileDefaultTypeInternal _ReduceFile_default_instance_;
+class ReduceReply;
+class ReduceReplyDefaultTypeInternal;
+extern ReduceReplyDefaultTypeInternal _ReduceReply_default_instance_;
 class Shard;
 class ShardDefaultTypeInternal;
 extern ShardDefaultTypeInternal _Shard_default_instance_;
@@ -66,6 +72,8 @@ extern ShardFileInfoDefaultTypeInternal _ShardFileInfo_default_instance_;
 }  // namespace masterworker
 PROTOBUF_NAMESPACE_OPEN
 template<> ::masterworker::MapReply* Arena::CreateMaybeMessage<::masterworker::MapReply>(Arena*);
+template<> ::masterworker::ReduceFile* Arena::CreateMaybeMessage<::masterworker::ReduceFile>(Arena*);
+template<> ::masterworker::ReduceReply* Arena::CreateMaybeMessage<::masterworker::ReduceReply>(Arena*);
 template<> ::masterworker::Shard* Arena::CreateMaybeMessage<::masterworker::Shard>(Arena*);
 template<> ::masterworker::ShardFileInfo* Arena::CreateMaybeMessage<::masterworker::ShardFileInfo>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -186,6 +194,7 @@ class Shard PROTOBUF_FINAL :
 
   enum : int {
     kFilesFieldNumber = 1,
+    kNOutputFilesFieldNumber = 2,
   };
   // repeated .masterworker.ShardFileInfo files = 1;
   int files_size() const;
@@ -205,6 +214,15 @@ class Shard PROTOBUF_FINAL :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::masterworker::ShardFileInfo >&
       files() const;
 
+  // int32 nOutputFiles = 2;
+  void clear_noutputfiles();
+  ::PROTOBUF_NAMESPACE_ID::int32 noutputfiles() const;
+  void set_noutputfiles(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_noutputfiles() const;
+  void _internal_set_noutputfiles(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:masterworker.Shard)
  private:
   class _Internal;
@@ -213,6 +231,7 @@ class Shard PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::masterworker::ShardFileInfo > files_;
+  ::PROTOBUF_NAMESPACE_ID::int32 noutputfiles_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_masterworker_2eproto;
 };
@@ -524,6 +543,292 @@ class MapReply PROTOBUF_FINAL :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_masterworker_2eproto;
 };
+// -------------------------------------------------------------------
+
+class ReduceFile PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:masterworker.ReduceFile) */ {
+ public:
+  inline ReduceFile() : ReduceFile(nullptr) {}
+  virtual ~ReduceFile();
+
+  ReduceFile(const ReduceFile& from);
+  ReduceFile(ReduceFile&& from) noexcept
+    : ReduceFile() {
+    *this = ::std::move(from);
+  }
+
+  inline ReduceFile& operator=(const ReduceFile& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ReduceFile& operator=(ReduceFile&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ReduceFile& default_instance();
+
+  static inline const ReduceFile* internal_default_instance() {
+    return reinterpret_cast<const ReduceFile*>(
+               &_ReduceFile_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(ReduceFile& a, ReduceFile& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ReduceFile* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ReduceFile* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ReduceFile* New() const final {
+    return CreateMaybeMessage<ReduceFile>(nullptr);
+  }
+
+  ReduceFile* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ReduceFile>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ReduceFile& from);
+  void MergeFrom(const ReduceFile& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ReduceFile* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "masterworker.ReduceFile";
+  }
+  protected:
+  explicit ReduceFile(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_masterworker_2eproto);
+    return ::descriptor_table_masterworker_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFileNameFieldNumber = 1,
+  };
+  // string fileName = 1;
+  void clear_filename();
+  const std::string& filename() const;
+  void set_filename(const std::string& value);
+  void set_filename(std::string&& value);
+  void set_filename(const char* value);
+  void set_filename(const char* value, size_t size);
+  std::string* mutable_filename();
+  std::string* release_filename();
+  void set_allocated_filename(std::string* filename);
+  private:
+  const std::string& _internal_filename() const;
+  void _internal_set_filename(const std::string& value);
+  std::string* _internal_mutable_filename();
+  public:
+
+  // @@protoc_insertion_point(class_scope:masterworker.ReduceFile)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr filename_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_masterworker_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ReduceReply PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:masterworker.ReduceReply) */ {
+ public:
+  inline ReduceReply() : ReduceReply(nullptr) {}
+  virtual ~ReduceReply();
+
+  ReduceReply(const ReduceReply& from);
+  ReduceReply(ReduceReply&& from) noexcept
+    : ReduceReply() {
+    *this = ::std::move(from);
+  }
+
+  inline ReduceReply& operator=(const ReduceReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ReduceReply& operator=(ReduceReply&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ReduceReply& default_instance();
+
+  static inline const ReduceReply* internal_default_instance() {
+    return reinterpret_cast<const ReduceReply*>(
+               &_ReduceReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(ReduceReply& a, ReduceReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ReduceReply* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ReduceReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ReduceReply* New() const final {
+    return CreateMaybeMessage<ReduceReply>(nullptr);
+  }
+
+  ReduceReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ReduceReply>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ReduceReply& from);
+  void MergeFrom(const ReduceReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ReduceReply* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "masterworker.ReduceReply";
+  }
+  protected:
+  explicit ReduceReply(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_masterworker_2eproto);
+    return ::descriptor_table_masterworker_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMessageFieldNumber = 1,
+  };
+  // string message = 1;
+  void clear_message();
+  const std::string& message() const;
+  void set_message(const std::string& value);
+  void set_message(std::string&& value);
+  void set_message(const char* value);
+  void set_message(const char* value, size_t size);
+  std::string* mutable_message();
+  std::string* release_message();
+  void set_allocated_message(std::string* message);
+  private:
+  const std::string& _internal_message() const;
+  void _internal_set_message(const std::string& value);
+  std::string* _internal_mutable_message();
+  public:
+
+  // @@protoc_insertion_point(class_scope:masterworker.ReduceReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_masterworker_2eproto;
+};
 // ===================================================================
 
 
@@ -572,6 +877,26 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::masterworker::ShardFil
 Shard::files() const {
   // @@protoc_insertion_point(field_list:masterworker.Shard.files)
   return files_;
+}
+
+// int32 nOutputFiles = 2;
+inline void Shard::clear_noutputfiles() {
+  noutputfiles_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Shard::_internal_noutputfiles() const {
+  return noutputfiles_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 Shard::noutputfiles() const {
+  // @@protoc_insertion_point(field_get:masterworker.Shard.nOutputFiles)
+  return _internal_noutputfiles();
+}
+inline void Shard::_internal_set_noutputfiles(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  noutputfiles_ = value;
+}
+inline void Shard::set_noutputfiles(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_noutputfiles(value);
+  // @@protoc_insertion_point(field_set:masterworker.Shard.nOutputFiles)
 }
 
 // -------------------------------------------------------------------
@@ -744,9 +1069,143 @@ inline void MapReply::set_allocated_mapfile(std::string* mapfile) {
   // @@protoc_insertion_point(field_set_allocated:masterworker.MapReply.mapFile)
 }
 
+// -------------------------------------------------------------------
+
+// ReduceFile
+
+// string fileName = 1;
+inline void ReduceFile::clear_filename() {
+  filename_.ClearToEmpty();
+}
+inline const std::string& ReduceFile::filename() const {
+  // @@protoc_insertion_point(field_get:masterworker.ReduceFile.fileName)
+  return _internal_filename();
+}
+inline void ReduceFile::set_filename(const std::string& value) {
+  _internal_set_filename(value);
+  // @@protoc_insertion_point(field_set:masterworker.ReduceFile.fileName)
+}
+inline std::string* ReduceFile::mutable_filename() {
+  // @@protoc_insertion_point(field_mutable:masterworker.ReduceFile.fileName)
+  return _internal_mutable_filename();
+}
+inline const std::string& ReduceFile::_internal_filename() const {
+  return filename_.Get();
+}
+inline void ReduceFile::_internal_set_filename(const std::string& value) {
+  
+  filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ReduceFile::set_filename(std::string&& value) {
+  
+  filename_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:masterworker.ReduceFile.fileName)
+}
+inline void ReduceFile::set_filename(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:masterworker.ReduceFile.fileName)
+}
+inline void ReduceFile::set_filename(const char* value,
+    size_t size) {
+  
+  filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:masterworker.ReduceFile.fileName)
+}
+inline std::string* ReduceFile::_internal_mutable_filename() {
+  
+  return filename_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ReduceFile::release_filename() {
+  // @@protoc_insertion_point(field_release:masterworker.ReduceFile.fileName)
+  return filename_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ReduceFile::set_allocated_filename(std::string* filename) {
+  if (filename != nullptr) {
+    
+  } else {
+    
+  }
+  filename_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), filename,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:masterworker.ReduceFile.fileName)
+}
+
+// -------------------------------------------------------------------
+
+// ReduceReply
+
+// string message = 1;
+inline void ReduceReply::clear_message() {
+  message_.ClearToEmpty();
+}
+inline const std::string& ReduceReply::message() const {
+  // @@protoc_insertion_point(field_get:masterworker.ReduceReply.message)
+  return _internal_message();
+}
+inline void ReduceReply::set_message(const std::string& value) {
+  _internal_set_message(value);
+  // @@protoc_insertion_point(field_set:masterworker.ReduceReply.message)
+}
+inline std::string* ReduceReply::mutable_message() {
+  // @@protoc_insertion_point(field_mutable:masterworker.ReduceReply.message)
+  return _internal_mutable_message();
+}
+inline const std::string& ReduceReply::_internal_message() const {
+  return message_.Get();
+}
+inline void ReduceReply::_internal_set_message(const std::string& value) {
+  
+  message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ReduceReply::set_message(std::string&& value) {
+  
+  message_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:masterworker.ReduceReply.message)
+}
+inline void ReduceReply::set_message(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:masterworker.ReduceReply.message)
+}
+inline void ReduceReply::set_message(const char* value,
+    size_t size) {
+  
+  message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:masterworker.ReduceReply.message)
+}
+inline std::string* ReduceReply::_internal_mutable_message() {
+  
+  return message_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ReduceReply::release_message() {
+  // @@protoc_insertion_point(field_release:masterworker.ReduceReply.message)
+  return message_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ReduceReply::set_allocated_message(std::string* message) {
+  if (message != nullptr) {
+    
+  } else {
+    
+  }
+  message_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), message,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:masterworker.ReduceReply.message)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

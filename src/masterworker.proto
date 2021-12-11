@@ -4,10 +4,12 @@ package masterworker;
 
 service WorkerImpl {
     rpc Map (Shard) returns (MapReply) {}
+    rpc Reduce (ReduceFile) returns (ReduceReply) {}
 }
 
 message Shard {
     repeated ShardFileInfo files = 1;
+    int32 nOutputFiles = 2;
 }
 
 message ShardFileInfo {
@@ -18,4 +20,12 @@ message ShardFileInfo {
 
 message MapReply {
     string mapFile = 1;
+}
+
+message ReduceFile {
+    string fileName = 1;
+}
+
+message ReduceReply {
+    string message = 1;
 }

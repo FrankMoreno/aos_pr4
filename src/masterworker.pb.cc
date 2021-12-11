@@ -28,6 +28,14 @@ class MapReplyDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<MapReply> _instance;
 } _MapReply_default_instance_;
+class ReduceFileDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ReduceFile> _instance;
+} _ReduceFile_default_instance_;
+class ReduceReplyDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ReduceReply> _instance;
+} _ReduceReply_default_instance_;
 }  // namespace masterworker
 static void InitDefaultsscc_info_MapReply_masterworker_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -41,6 +49,32 @@ static void InitDefaultsscc_info_MapReply_masterworker_2eproto() {
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_MapReply_masterworker_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_MapReply_masterworker_2eproto}, {}};
+
+static void InitDefaultsscc_info_ReduceFile_masterworker_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::masterworker::_ReduceFile_default_instance_;
+    new (ptr) ::masterworker::ReduceFile();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ReduceFile_masterworker_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ReduceFile_masterworker_2eproto}, {}};
+
+static void InitDefaultsscc_info_ReduceReply_masterworker_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::masterworker::_ReduceReply_default_instance_;
+    new (ptr) ::masterworker::ReduceReply();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ReduceReply_masterworker_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ReduceReply_masterworker_2eproto}, {}};
 
 static void InitDefaultsscc_info_Shard_masterworker_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -69,7 +103,7 @@ static void InitDefaultsscc_info_ShardFileInfo_masterworker_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ShardFileInfo_masterworker_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ShardFileInfo_masterworker_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_masterworker_2eproto[3];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_masterworker_2eproto[5];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_masterworker_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_masterworker_2eproto = nullptr;
 
@@ -80,6 +114,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_masterworker_2eproto::offsets[
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::masterworker::Shard, files_),
+  PROTOBUF_FIELD_OFFSET(::masterworker::Shard, noutputfiles_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::masterworker::ShardFileInfo, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -94,41 +129,63 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_masterworker_2eproto::offsets[
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::masterworker::MapReply, mapfile_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::masterworker::ReduceFile, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::masterworker::ReduceFile, filename_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::masterworker::ReduceReply, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::masterworker::ReduceReply, message_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::masterworker::Shard)},
-  { 6, -1, sizeof(::masterworker::ShardFileInfo)},
-  { 14, -1, sizeof(::masterworker::MapReply)},
+  { 7, -1, sizeof(::masterworker::ShardFileInfo)},
+  { 15, -1, sizeof(::masterworker::MapReply)},
+  { 21, -1, sizeof(::masterworker::ReduceFile)},
+  { 27, -1, sizeof(::masterworker::ReduceReply)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::masterworker::_Shard_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::masterworker::_ShardFileInfo_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::masterworker::_MapReply_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::masterworker::_ReduceFile_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::masterworker::_ReduceReply_default_instance_),
 };
 
 const char descriptor_table_protodef_masterworker_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\022masterworker.proto\022\014masterworker\"3\n\005Sh"
+  "\n\022masterworker.proto\022\014masterworker\"I\n\005Sh"
   "ard\022*\n\005files\030\001 \003(\0132\033.masterworker.ShardF"
-  "ileInfo\"@\n\rShardFileInfo\022\020\n\010fileName\030\001 \001"
-  "(\t\022\r\n\005start\030\002 \001(\005\022\016\n\006finish\030\003 \001(\005\"\033\n\010Map"
-  "Reply\022\017\n\007mapFile\030\001 \001(\t2B\n\nWorkerImpl\0224\n\003"
-  "Map\022\023.masterworker.Shard\032\026.masterworker."
-  "MapReply\"\000b\006proto3"
+  "ileInfo\022\024\n\014nOutputFiles\030\002 \001(\005\"@\n\rShardFi"
+  "leInfo\022\020\n\010fileName\030\001 \001(\t\022\r\n\005start\030\002 \001(\005\022"
+  "\016\n\006finish\030\003 \001(\005\"\033\n\010MapReply\022\017\n\007mapFile\030\001"
+  " \001(\t\"\036\n\nReduceFile\022\020\n\010fileName\030\001 \001(\t\"\036\n\013"
+  "ReduceReply\022\017\n\007message\030\001 \001(\t2\203\001\n\nWorkerI"
+  "mpl\0224\n\003Map\022\023.masterworker.Shard\032\026.master"
+  "worker.MapReply\"\000\022\?\n\006Reduce\022\030.masterwork"
+  "er.ReduceFile\032\031.masterworker.ReduceReply"
+  "\"\000b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_masterworker_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_masterworker_2eproto_sccs[3] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_masterworker_2eproto_sccs[5] = {
   &scc_info_MapReply_masterworker_2eproto.base,
+  &scc_info_ReduceFile_masterworker_2eproto.base,
+  &scc_info_ReduceReply_masterworker_2eproto.base,
   &scc_info_Shard_masterworker_2eproto.base,
   &scc_info_ShardFileInfo_masterworker_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_masterworker_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_masterworker_2eproto = {
-  false, false, descriptor_table_protodef_masterworker_2eproto, "masterworker.proto", 258,
-  &descriptor_table_masterworker_2eproto_once, descriptor_table_masterworker_2eproto_sccs, descriptor_table_masterworker_2eproto_deps, 3, 0,
+  false, false, descriptor_table_protodef_masterworker_2eproto, "masterworker.proto", 410,
+  &descriptor_table_masterworker_2eproto_once, descriptor_table_masterworker_2eproto_sccs, descriptor_table_masterworker_2eproto_deps, 5, 0,
   schemas, file_default_instances, TableStruct_masterworker_2eproto::offsets,
-  file_level_metadata_masterworker_2eproto, 3, file_level_enum_descriptors_masterworker_2eproto, file_level_service_descriptors_masterworker_2eproto,
+  file_level_metadata_masterworker_2eproto, 5, file_level_enum_descriptors_masterworker_2eproto, file_level_service_descriptors_masterworker_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -152,11 +209,13 @@ Shard::Shard(const Shard& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       files_(from.files_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  noutputfiles_ = from.noutputfiles_;
   // @@protoc_insertion_point(copy_constructor:masterworker.Shard)
 }
 
 void Shard::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Shard_masterworker_2eproto.base);
+  noutputfiles_ = 0;
 }
 
 Shard::~Shard() {
@@ -191,6 +250,7 @@ void Shard::Clear() {
   (void) cached_has_bits;
 
   files_.Clear();
+  noutputfiles_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -211,6 +271,13 @@ const char* Shard::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // int32 nOutputFiles = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          noutputfiles_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -249,6 +316,12 @@ failure:
       InternalWriteMessage(1, this->_internal_files(i), target, stream);
   }
 
+  // int32 nOutputFiles = 2;
+  if (this->noutputfiles() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_noutputfiles(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -270,6 +343,13 @@ size_t Shard::ByteSizeLong() const {
   for (const auto& msg : this->files_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // int32 nOutputFiles = 2;
+  if (this->noutputfiles() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_noutputfiles());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -304,6 +384,9 @@ void Shard::MergeFrom(const Shard& from) {
   (void) cached_has_bits;
 
   files_.MergeFrom(from.files_);
+  if (from.noutputfiles() != 0) {
+    _internal_set_noutputfiles(from._internal_noutputfiles());
+  }
 }
 
 void Shard::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -328,6 +411,7 @@ void Shard::InternalSwap(Shard* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   files_.InternalSwap(&other->files_);
+  swap(noutputfiles_, other->noutputfiles_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Shard::GetMetadata() const {
@@ -809,6 +893,418 @@ void MapReply::InternalSwap(MapReply* other) {
 }
 
 
+// ===================================================================
+
+class ReduceFile::_Internal {
+ public:
+};
+
+ReduceFile::ReduceFile(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:masterworker.ReduceFile)
+}
+ReduceFile::ReduceFile(const ReduceFile& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_filename().empty()) {
+    filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_filename(), 
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:masterworker.ReduceFile)
+}
+
+void ReduceFile::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ReduceFile_masterworker_2eproto.base);
+  filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+ReduceFile::~ReduceFile() {
+  // @@protoc_insertion_point(destructor:masterworker.ReduceFile)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void ReduceFile::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  filename_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void ReduceFile::ArenaDtor(void* object) {
+  ReduceFile* _this = reinterpret_cast< ReduceFile* >(object);
+  (void)_this;
+}
+void ReduceFile::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void ReduceFile::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ReduceFile& ReduceFile::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ReduceFile_masterworker_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void ReduceFile::Clear() {
+// @@protoc_insertion_point(message_clear_start:masterworker.ReduceFile)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  filename_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ReduceFile::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string fileName = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_filename();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "masterworker.ReduceFile.fileName"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* ReduceFile::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:masterworker.ReduceFile)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string fileName = 1;
+  if (this->filename().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_filename().data(), static_cast<int>(this->_internal_filename().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "masterworker.ReduceFile.fileName");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_filename(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:masterworker.ReduceFile)
+  return target;
+}
+
+size_t ReduceFile::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:masterworker.ReduceFile)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string fileName = 1;
+  if (this->filename().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_filename());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ReduceFile::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:masterworker.ReduceFile)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ReduceFile* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ReduceFile>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:masterworker.ReduceFile)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:masterworker.ReduceFile)
+    MergeFrom(*source);
+  }
+}
+
+void ReduceFile::MergeFrom(const ReduceFile& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:masterworker.ReduceFile)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.filename().size() > 0) {
+    _internal_set_filename(from._internal_filename());
+  }
+}
+
+void ReduceFile::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:masterworker.ReduceFile)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ReduceFile::CopyFrom(const ReduceFile& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:masterworker.ReduceFile)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ReduceFile::IsInitialized() const {
+  return true;
+}
+
+void ReduceFile::InternalSwap(ReduceFile* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  filename_.Swap(&other->filename_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ReduceFile::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+class ReduceReply::_Internal {
+ public:
+};
+
+ReduceReply::ReduceReply(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:masterworker.ReduceReply)
+}
+ReduceReply::ReduceReply(const ReduceReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_message().empty()) {
+    message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_message(), 
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:masterworker.ReduceReply)
+}
+
+void ReduceReply::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ReduceReply_masterworker_2eproto.base);
+  message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+ReduceReply::~ReduceReply() {
+  // @@protoc_insertion_point(destructor:masterworker.ReduceReply)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void ReduceReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void ReduceReply::ArenaDtor(void* object) {
+  ReduceReply* _this = reinterpret_cast< ReduceReply* >(object);
+  (void)_this;
+}
+void ReduceReply::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void ReduceReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ReduceReply& ReduceReply::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ReduceReply_masterworker_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void ReduceReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:masterworker.ReduceReply)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  message_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ReduceReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string message = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_message();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "masterworker.ReduceReply.message"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* ReduceReply::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:masterworker.ReduceReply)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string message = 1;
+  if (this->message().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_message().data(), static_cast<int>(this->_internal_message().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "masterworker.ReduceReply.message");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_message(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:masterworker.ReduceReply)
+  return target;
+}
+
+size_t ReduceReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:masterworker.ReduceReply)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string message = 1;
+  if (this->message().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_message());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ReduceReply::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:masterworker.ReduceReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ReduceReply* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ReduceReply>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:masterworker.ReduceReply)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:masterworker.ReduceReply)
+    MergeFrom(*source);
+  }
+}
+
+void ReduceReply::MergeFrom(const ReduceReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:masterworker.ReduceReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.message().size() > 0) {
+    _internal_set_message(from._internal_message());
+  }
+}
+
+void ReduceReply::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:masterworker.ReduceReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ReduceReply::CopyFrom(const ReduceReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:masterworker.ReduceReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ReduceReply::IsInitialized() const {
+  return true;
+}
+
+void ReduceReply::InternalSwap(ReduceReply* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  message_.Swap(&other->message_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ReduceReply::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace masterworker
 PROTOBUF_NAMESPACE_OPEN
@@ -820,6 +1316,12 @@ template<> PROTOBUF_NOINLINE ::masterworker::ShardFileInfo* Arena::CreateMaybeMe
 }
 template<> PROTOBUF_NOINLINE ::masterworker::MapReply* Arena::CreateMaybeMessage< ::masterworker::MapReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::masterworker::MapReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::masterworker::ReduceFile* Arena::CreateMaybeMessage< ::masterworker::ReduceFile >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::masterworker::ReduceFile >(arena);
+}
+template<> PROTOBUF_NOINLINE ::masterworker::ReduceReply* Arena::CreateMaybeMessage< ::masterworker::ReduceReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::masterworker::ReduceReply >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

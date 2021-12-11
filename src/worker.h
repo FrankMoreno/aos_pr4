@@ -6,6 +6,8 @@
 #include "masterworker.grpc.pb.h"
 #include <fstream>
 #include <sstream>
+#include <functional>
+#include <experimental/filesystem>
 
 using grpc::ServerBuilder;
 using grpc::Server;
@@ -15,9 +17,14 @@ using masterworker::WorkerImpl;
 using masterworker::MapReply;
 using masterworker::Shard;
 using masterworker::ShardFileInfo;
+using masterworker::ReduceFile;
+using masterworker::ReduceReply;
 
 extern std::shared_ptr<BaseMapper> get_mapper_from_task_factory(const std::string& user_id);
 extern std::shared_ptr<BaseReducer> get_reducer_from_task_factory(const std::string& user_id);
+
+namespace fs = std::experimental::filesystem;
+
 /* CS6210_TASK: Handle all the task a Worker is supposed to do.
 	This is a big task for this project, will test your understanding of map reduce */
 class Worker final : public WorkerImpl::Service {
@@ -38,48 +45,101 @@ class Worker final : public WorkerImpl::Service {
 
 			for (int i = 0; i < request->files_size(); i++) {
 				// https://www.delftstack.com/howto/cpp/read-file-into-string-cpp/
-				ShardFileInfo fileInfo = request->files(i);
-				std::size_t size = fileInfo.finish() - fileInfo.start() + 1;
-
-				std::string buffer;
-				buffer.resize(size);
-
-				std::ifstream input_file(fileInfo.filename());
-				input_file.seekg(fileInfo.start());
-				input_file.read(&buffer[0], size);
-
-				// Instructions specified to process input based on newline
-				std::stringstream buffer_stream(buffer);
-				std::string line;
-				while(std::getline(buffer_stream, line)) {
-					mapper->map(line);
-				}
-				// Need to remove newline characters so only words are mapped
-				// https://www.systutorials.com/how-to-remove-newline-characters-from-a-string-in-c/
-				// TODO: Possible bug here with how newline is being removed, might combine words
-				// buffer.erase(std::remove(buffer.begin(), buffer.end(), '\n'), buffer.end());
-				// mapper->map(buffer);
-				input_file.close();
+				MapFile(request->files(i), mapper);
 			}
 
-			// TODO: Need a dynamic file name
-			std::string responseFileName = "filename.txt";
-			std::ofstream responseFile("filename.txt", std::ios_base::app);
+			std::vector<std::ofstream> responseFiles;
+
+			for (int i = 0; i < request->noutputfiles(); i++) {
+				std::string responseFileName = std::to_string(i) + "/" + this->ip_addr_port + ".txt";
+				std::ofstream responseFile(responseFileName, std::ios_base::app);
+				responseFiles.push_back(std::move(responseFile));
+			}
+
 			std::multimap <std::string, std::string> :: iterator itr;
+			std::hash<std::string> str_hash;
 
 			for (itr = mapper->impl_->key_value_pairs.begin(); itr != mapper->impl_->key_value_pairs.end(); ++itr) {
-				responseFile << itr->first << " " << itr->second << "\n";
+				int hash_index = str_hash(itr->first) % request->noutputfiles();
+				responseFiles.at(hash_index) << itr->first << " " << itr->second << "\n";
 			}
 
-			responseFile.close();
-			reply->set_mapfile(responseFileName);
+			for (int i = 0; i < request->noutputfiles(); i++) {
+				responseFiles[i].close();
+			}
+
+			reply->set_mapfile(this->ip_addr_port);
 
 			return Status::OK;
 		}
 
-		// Status Reduce(ServerContext* context, const Shard* request, MapReply* reply) override {
-		// 	return Status::OK;
-		// }
+		void MapFile(ShardFileInfo fileInfo, std::shared_ptr<BaseMapper> mapper) {
+			// https://www.delftstack.com/howto/cpp/read-file-into-string-cpp/
+			std::size_t size = fileInfo.finish() - fileInfo.start() + 1;
+			std::string buffer;
+			buffer.resize(size);
+
+			std::ifstream input_file(fileInfo.filename());
+			input_file.seekg(fileInfo.start());
+			input_file.read(&buffer[0], size);
+
+			// Instructions specified to process input based on newline
+			std::stringstream buffer_stream(buffer);
+			std::string line;
+			while(std::getline(buffer_stream, line)) {
+				mapper->map(line);
+			}
+
+			input_file.close();
+		}
+
+		Status Reduce(ServerContext* context, const ReduceFile* request, ReduceReply* reply) override {
+			auto reducer = get_reducer_from_task_factory("cs6210");
+			std::map<std::string, std::vector<std::string>> key_value_pairs;
+
+			for (const auto & entry : fs::directory_iterator(request->filename())) {
+				std::ifstream input_file(entry.path());
+				std::string line;
+				std::vector<std::string> tokens;
+
+				while(std::getline(input_file, line)) {
+					std::stringstream line_stream(line);
+					std::vector<std::string> tokens;
+					std::string temp;
+
+					while (line_stream >> temp)
+        				tokens.push_back(temp);
+					
+					std::string key = tokens[0];
+					std::string value = tokens[1];
+
+					if(key_value_pairs.count(key)) {
+						key_value_pairs[key].push_back(value);
+					} else {
+						key_value_pairs.insert(std::pair<std::string, std::vector<std::string>>(key, {value}));
+					}
+				}
+			}
+
+
+			std::map<std::string, std::vector<std::string>>::iterator it;
+			for (it = key_value_pairs.begin(); it != key_value_pairs.end(); it++) {
+				reducer->reduce(it->first, it->second);
+			}
+
+
+			std::string outputFileName = "output/" + request->filename() + ".txt";
+			std::ofstream responseFile(outputFileName, std::ios_base::app);
+			std::multimap <std::string, std::string> :: iterator itr;
+
+			for (itr = reducer->impl_->key_value_pairs.begin(); itr != reducer->impl_->key_value_pairs.end(); ++itr) {
+				responseFile << itr->first << " " << itr->second << "\n";
+			}
+
+			responseFile.close();
+
+			return Status::OK;
+		}
 };
 
 
@@ -95,20 +155,13 @@ Worker::Worker(std::string ip_addr_port) {
 	BaseReduer's member BaseReducerInternal impl_ directly, 
 	so you can manipulate them however you want when running map/reduce tasks*/
 bool Worker::run() {
-	/*  Below 5 lines are just examples of how you will call map and reduce
-		Remove them once you start writing your own logic */ 
-	// std::cout << "worker.run(), I 'm not ready yet" <<std::endl;
-	// auto mapper = get_mapper_from_task_factory("cs6210");
-	// mapper->map("I m just a 'dummy', a \"dummy line\"");
-	// auto reducer = get_reducer_from_task_factory("cs6210");
-	// reducer->reduce("dummy", std::vector<std::string>({"1", "1"}));
-	// return true;
+	// fs::create_directory(this->ip_addr_port);
 
 	ServerBuilder builder;
 	builder.AddListeningPort(this->ip_addr_port, grpc::InsecureServerCredentials());
 	builder.RegisterService(this);
 	std::unique_ptr<Server> server(builder.BuildAndStart());
-  	std::cout << "Server listening on " << this->ip_addr_port << std::endl;
 	server->Wait();
+
 	return true;
 }
