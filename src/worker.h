@@ -97,7 +97,7 @@ class Worker final : public WorkerImpl::Service {
 			auto reducer = get_reducer_from_task_factory("cs6210");
 			std::map<std::string, std::vector<std::string>> key_value_pairs;
 
-			for (const auto & entry : fs::directory_iterator(request->filename())) {
+			for (const auto & entry : fs::directory_iterator(request->directoryname())) {
 				std::ifstream input_file(entry.path());
 				std::string line;
 				std::vector<std::string> tokens;
@@ -128,7 +128,7 @@ class Worker final : public WorkerImpl::Service {
 			}
 
 
-			std::string outputFileName = "output/" + request->filename() + ".txt";
+			std::string outputFileName = request->outputdirectory() + "/" + request->directoryname() + ".txt";
 			std::ofstream responseFile(outputFileName, std::ios_base::app);
 			std::multimap <std::string, std::string> :: iterator itr;
 

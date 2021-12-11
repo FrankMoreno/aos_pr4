@@ -657,22 +657,39 @@ class ReduceFile PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kFileNameFieldNumber = 1,
+    kDirectoryNameFieldNumber = 1,
+    kOutputDirectoryFieldNumber = 2,
   };
-  // string fileName = 1;
-  void clear_filename();
-  const std::string& filename() const;
-  void set_filename(const std::string& value);
-  void set_filename(std::string&& value);
-  void set_filename(const char* value);
-  void set_filename(const char* value, size_t size);
-  std::string* mutable_filename();
-  std::string* release_filename();
-  void set_allocated_filename(std::string* filename);
+  // string directoryName = 1;
+  void clear_directoryname();
+  const std::string& directoryname() const;
+  void set_directoryname(const std::string& value);
+  void set_directoryname(std::string&& value);
+  void set_directoryname(const char* value);
+  void set_directoryname(const char* value, size_t size);
+  std::string* mutable_directoryname();
+  std::string* release_directoryname();
+  void set_allocated_directoryname(std::string* directoryname);
   private:
-  const std::string& _internal_filename() const;
-  void _internal_set_filename(const std::string& value);
-  std::string* _internal_mutable_filename();
+  const std::string& _internal_directoryname() const;
+  void _internal_set_directoryname(const std::string& value);
+  std::string* _internal_mutable_directoryname();
+  public:
+
+  // string outputDirectory = 2;
+  void clear_outputdirectory();
+  const std::string& outputdirectory() const;
+  void set_outputdirectory(const std::string& value);
+  void set_outputdirectory(std::string&& value);
+  void set_outputdirectory(const char* value);
+  void set_outputdirectory(const char* value, size_t size);
+  std::string* mutable_outputdirectory();
+  std::string* release_outputdirectory();
+  void set_allocated_outputdirectory(std::string* outputdirectory);
+  private:
+  const std::string& _internal_outputdirectory() const;
+  void _internal_set_outputdirectory(const std::string& value);
+  std::string* _internal_mutable_outputdirectory();
   public:
 
   // @@protoc_insertion_point(class_scope:masterworker.ReduceFile)
@@ -682,7 +699,8 @@ class ReduceFile PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr filename_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr directoryname_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr outputdirectory_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_masterworker_2eproto;
 };
@@ -1073,65 +1091,126 @@ inline void MapReply::set_allocated_mapfile(std::string* mapfile) {
 
 // ReduceFile
 
-// string fileName = 1;
-inline void ReduceFile::clear_filename() {
-  filename_.ClearToEmpty();
+// string directoryName = 1;
+inline void ReduceFile::clear_directoryname() {
+  directoryname_.ClearToEmpty();
 }
-inline const std::string& ReduceFile::filename() const {
-  // @@protoc_insertion_point(field_get:masterworker.ReduceFile.fileName)
-  return _internal_filename();
+inline const std::string& ReduceFile::directoryname() const {
+  // @@protoc_insertion_point(field_get:masterworker.ReduceFile.directoryName)
+  return _internal_directoryname();
 }
-inline void ReduceFile::set_filename(const std::string& value) {
-  _internal_set_filename(value);
-  // @@protoc_insertion_point(field_set:masterworker.ReduceFile.fileName)
+inline void ReduceFile::set_directoryname(const std::string& value) {
+  _internal_set_directoryname(value);
+  // @@protoc_insertion_point(field_set:masterworker.ReduceFile.directoryName)
 }
-inline std::string* ReduceFile::mutable_filename() {
-  // @@protoc_insertion_point(field_mutable:masterworker.ReduceFile.fileName)
-  return _internal_mutable_filename();
+inline std::string* ReduceFile::mutable_directoryname() {
+  // @@protoc_insertion_point(field_mutable:masterworker.ReduceFile.directoryName)
+  return _internal_mutable_directoryname();
 }
-inline const std::string& ReduceFile::_internal_filename() const {
-  return filename_.Get();
+inline const std::string& ReduceFile::_internal_directoryname() const {
+  return directoryname_.Get();
 }
-inline void ReduceFile::_internal_set_filename(const std::string& value) {
+inline void ReduceFile::_internal_set_directoryname(const std::string& value) {
   
-  filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+  directoryname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void ReduceFile::set_filename(std::string&& value) {
+inline void ReduceFile::set_directoryname(std::string&& value) {
   
-  filename_.Set(
+  directoryname_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:masterworker.ReduceFile.fileName)
+  // @@protoc_insertion_point(field_set_rvalue:masterworker.ReduceFile.directoryName)
 }
-inline void ReduceFile::set_filename(const char* value) {
+inline void ReduceFile::set_directoryname(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:masterworker.ReduceFile.fileName)
+  directoryname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:masterworker.ReduceFile.directoryName)
 }
-inline void ReduceFile::set_filename(const char* value,
+inline void ReduceFile::set_directoryname(const char* value,
     size_t size) {
   
-  filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+  directoryname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:masterworker.ReduceFile.fileName)
+  // @@protoc_insertion_point(field_set_pointer:masterworker.ReduceFile.directoryName)
 }
-inline std::string* ReduceFile::_internal_mutable_filename() {
+inline std::string* ReduceFile::_internal_mutable_directoryname() {
   
-  return filename_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+  return directoryname_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* ReduceFile::release_filename() {
-  // @@protoc_insertion_point(field_release:masterworker.ReduceFile.fileName)
-  return filename_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline std::string* ReduceFile::release_directoryname() {
+  // @@protoc_insertion_point(field_release:masterworker.ReduceFile.directoryName)
+  return directoryname_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void ReduceFile::set_allocated_filename(std::string* filename) {
-  if (filename != nullptr) {
+inline void ReduceFile::set_allocated_directoryname(std::string* directoryname) {
+  if (directoryname != nullptr) {
     
   } else {
     
   }
-  filename_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), filename,
+  directoryname_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), directoryname,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:masterworker.ReduceFile.fileName)
+  // @@protoc_insertion_point(field_set_allocated:masterworker.ReduceFile.directoryName)
+}
+
+// string outputDirectory = 2;
+inline void ReduceFile::clear_outputdirectory() {
+  outputdirectory_.ClearToEmpty();
+}
+inline const std::string& ReduceFile::outputdirectory() const {
+  // @@protoc_insertion_point(field_get:masterworker.ReduceFile.outputDirectory)
+  return _internal_outputdirectory();
+}
+inline void ReduceFile::set_outputdirectory(const std::string& value) {
+  _internal_set_outputdirectory(value);
+  // @@protoc_insertion_point(field_set:masterworker.ReduceFile.outputDirectory)
+}
+inline std::string* ReduceFile::mutable_outputdirectory() {
+  // @@protoc_insertion_point(field_mutable:masterworker.ReduceFile.outputDirectory)
+  return _internal_mutable_outputdirectory();
+}
+inline const std::string& ReduceFile::_internal_outputdirectory() const {
+  return outputdirectory_.Get();
+}
+inline void ReduceFile::_internal_set_outputdirectory(const std::string& value) {
+  
+  outputdirectory_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ReduceFile::set_outputdirectory(std::string&& value) {
+  
+  outputdirectory_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:masterworker.ReduceFile.outputDirectory)
+}
+inline void ReduceFile::set_outputdirectory(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  outputdirectory_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:masterworker.ReduceFile.outputDirectory)
+}
+inline void ReduceFile::set_outputdirectory(const char* value,
+    size_t size) {
+  
+  outputdirectory_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:masterworker.ReduceFile.outputDirectory)
+}
+inline std::string* ReduceFile::_internal_mutable_outputdirectory() {
+  
+  return outputdirectory_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ReduceFile::release_outputdirectory() {
+  // @@protoc_insertion_point(field_release:masterworker.ReduceFile.outputDirectory)
+  return outputdirectory_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ReduceFile::set_allocated_outputdirectory(std::string* outputdirectory) {
+  if (outputdirectory != nullptr) {
+    
+  } else {
+    
+  }
+  outputdirectory_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), outputdirectory,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:masterworker.ReduceFile.outputDirectory)
 }
 
 // -------------------------------------------------------------------

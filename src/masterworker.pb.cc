@@ -134,7 +134,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_masterworker_2eproto::offsets[
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::masterworker::ReduceFile, filename_),
+  PROTOBUF_FIELD_OFFSET(::masterworker::ReduceFile, directoryname_),
+  PROTOBUF_FIELD_OFFSET(::masterworker::ReduceFile, outputdirectory_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::masterworker::ReduceReply, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -147,7 +148,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 7, -1, sizeof(::masterworker::ShardFileInfo)},
   { 15, -1, sizeof(::masterworker::MapReply)},
   { 21, -1, sizeof(::masterworker::ReduceFile)},
-  { 27, -1, sizeof(::masterworker::ReduceReply)},
+  { 28, -1, sizeof(::masterworker::ReduceReply)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -164,12 +165,12 @@ const char descriptor_table_protodef_masterworker_2eproto[] PROTOBUF_SECTION_VAR
   "ileInfo\022\024\n\014nOutputFiles\030\002 \001(\005\"@\n\rShardFi"
   "leInfo\022\020\n\010fileName\030\001 \001(\t\022\r\n\005start\030\002 \001(\005\022"
   "\016\n\006finish\030\003 \001(\005\"\033\n\010MapReply\022\017\n\007mapFile\030\001"
-  " \001(\t\"\036\n\nReduceFile\022\020\n\010fileName\030\001 \001(\t\"\036\n\013"
-  "ReduceReply\022\017\n\007message\030\001 \001(\t2\203\001\n\nWorkerI"
-  "mpl\0224\n\003Map\022\023.masterworker.Shard\032\026.master"
-  "worker.MapReply\"\000\022\?\n\006Reduce\022\030.masterwork"
-  "er.ReduceFile\032\031.masterworker.ReduceReply"
-  "\"\000b\006proto3"
+  " \001(\t\"<\n\nReduceFile\022\025\n\rdirectoryName\030\001 \001("
+  "\t\022\027\n\017outputDirectory\030\002 \001(\t\"\036\n\013ReduceRepl"
+  "y\022\017\n\007message\030\001 \001(\t2\203\001\n\nWorkerImpl\0224\n\003Map"
+  "\022\023.masterworker.Shard\032\026.masterworker.Map"
+  "Reply\"\000\022\?\n\006Reduce\022\030.masterworker.ReduceF"
+  "ile\032\031.masterworker.ReduceReply\"\000b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_masterworker_2eproto_deps[1] = {
 };
@@ -182,7 +183,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_mas
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_masterworker_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_masterworker_2eproto = {
-  false, false, descriptor_table_protodef_masterworker_2eproto, "masterworker.proto", 410,
+  false, false, descriptor_table_protodef_masterworker_2eproto, "masterworker.proto", 440,
   &descriptor_table_masterworker_2eproto_once, descriptor_table_masterworker_2eproto_sccs, descriptor_table_masterworker_2eproto_deps, 5, 0,
   schemas, file_default_instances, TableStruct_masterworker_2eproto::offsets,
   file_level_metadata_masterworker_2eproto, 5, file_level_enum_descriptors_masterworker_2eproto, file_level_service_descriptors_masterworker_2eproto,
@@ -908,9 +909,14 @@ ReduceFile::ReduceFile(::PROTOBUF_NAMESPACE_ID::Arena* arena)
 ReduceFile::ReduceFile(const ReduceFile& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_filename().empty()) {
-    filename_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_filename(), 
+  directoryname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_directoryname().empty()) {
+    directoryname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_directoryname(), 
+      GetArena());
+  }
+  outputdirectory_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_outputdirectory().empty()) {
+    outputdirectory_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_outputdirectory(), 
       GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:masterworker.ReduceFile)
@@ -918,7 +924,8 @@ ReduceFile::ReduceFile(const ReduceFile& from)
 
 void ReduceFile::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ReduceFile_masterworker_2eproto.base);
-  filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  directoryname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  outputdirectory_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 ReduceFile::~ReduceFile() {
@@ -929,7 +936,8 @@ ReduceFile::~ReduceFile() {
 
 void ReduceFile::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
-  filename_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  directoryname_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  outputdirectory_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void ReduceFile::ArenaDtor(void* object) {
@@ -953,7 +961,8 @@ void ReduceFile::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  filename_.ClearToEmpty();
+  directoryname_.ClearToEmpty();
+  outputdirectory_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -964,12 +973,21 @@ const char* ReduceFile::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // string fileName = 1;
+      // string directoryName = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_filename();
+          auto str = _internal_mutable_directoryname();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "masterworker.ReduceFile.fileName"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "masterworker.ReduceFile.directoryName"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string outputDirectory = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_outputdirectory();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "masterworker.ReduceFile.outputDirectory"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1001,14 +1019,24 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string fileName = 1;
-  if (this->filename().size() > 0) {
+  // string directoryName = 1;
+  if (this->directoryname().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_filename().data(), static_cast<int>(this->_internal_filename().length()),
+      this->_internal_directoryname().data(), static_cast<int>(this->_internal_directoryname().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "masterworker.ReduceFile.fileName");
+      "masterworker.ReduceFile.directoryName");
     target = stream->WriteStringMaybeAliased(
-        1, this->_internal_filename(), target);
+        1, this->_internal_directoryname(), target);
+  }
+
+  // string outputDirectory = 2;
+  if (this->outputdirectory().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_outputdirectory().data(), static_cast<int>(this->_internal_outputdirectory().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "masterworker.ReduceFile.outputDirectory");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_outputdirectory(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1027,11 +1055,18 @@ size_t ReduceFile::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string fileName = 1;
-  if (this->filename().size() > 0) {
+  // string directoryName = 1;
+  if (this->directoryname().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_filename());
+        this->_internal_directoryname());
+  }
+
+  // string outputDirectory = 2;
+  if (this->outputdirectory().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_outputdirectory());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1065,8 +1100,11 @@ void ReduceFile::MergeFrom(const ReduceFile& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.filename().size() > 0) {
-    _internal_set_filename(from._internal_filename());
+  if (from.directoryname().size() > 0) {
+    _internal_set_directoryname(from._internal_directoryname());
+  }
+  if (from.outputdirectory().size() > 0) {
+    _internal_set_outputdirectory(from._internal_outputdirectory());
   }
 }
 
@@ -1091,7 +1129,8 @@ bool ReduceFile::IsInitialized() const {
 void ReduceFile::InternalSwap(ReduceFile* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  filename_.Swap(&other->filename_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  directoryname_.Swap(&other->directoryname_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  outputdirectory_.Swap(&other->outputdirectory_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ReduceFile::GetMetadata() const {

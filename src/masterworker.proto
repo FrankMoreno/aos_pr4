@@ -23,7 +23,8 @@ message MapReply {
 }
 
 message ReduceFile {
-    string fileName = 1;
+    string directoryName = 1;
+    string outputDirectory = 2;
 }
 
 message ReduceReply {

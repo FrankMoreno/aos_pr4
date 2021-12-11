@@ -53,7 +53,7 @@ class Master {
 			Status status = stub->Map(&context, request, &reply);
 
 			if(status.ok()) {
-				std::cout << reply.mapfile() << "\n";
+				// std::cout << reply.mapfile() << "\n";
 			} else {
 				std::cout << "ERROR: Failed mapping this shard\n";
 			}
@@ -64,12 +64,12 @@ class Master {
 			ReduceReply reply;
 			ClientContext context;
 
-			request.set_filename(directoryName);
-
+			request.set_directoryname(directoryName);
+			request.set_outputdirectory(this->spec.output_dir);
 			Status status = stub->Reduce(&context, request, &reply);
 
 			if(status.ok()) {
-				std::cout << reply.message() << "\n";
+				// std::cout << reply.message() << "\n";
 			} else {
 				std::cout << "ERROR: Failed to reduce this directory\n";
 			}
@@ -106,6 +106,7 @@ bool Master::run() {
 
 	for (int i = 0; i < this->spec.n_output_files; i++) {
 		AssignReduce(std::to_string(i), stubs[0]);
+		fs::remove_all(std::to_string(i));
 	}
 
 	return true;
